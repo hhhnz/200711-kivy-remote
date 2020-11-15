@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Remote Desktop</title>
+        <style>
+            body { margin: 0 }
+            img { max-height: 100%; max-width: 100%; object-fit: contain }
+        </style>
+    </head>
+    <body>
+        <img src="/desktop.jpeg">
+        <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+        <script>
+            function reload_desktop() {
+
+
+                $('img').attr("src","/desktop.jpeg?"+"/"+Date.now())
+
+            }
+
+            setInterval(reload_desktop, 2000)
+
+            function send_click(event) {
+
+                var fac = this.naturalWidth / this.width
+                $.get('/click', {x: 0|fac * event.clientX,
+                                 y: 0|fac * event.clientY})
+            }
+
+            $('body').on('click', 'img', send_click)
+
+
+        </script>
+    </body>
+</html>
